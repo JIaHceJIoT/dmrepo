@@ -1,6 +1,6 @@
 ---
 order: 9
-title: 2 samba BR-SRV
+title: 2) samba BR-SRV
 ---
 
 BR-SRV

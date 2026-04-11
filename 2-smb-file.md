@@ -1,6 +1,6 @@
 ---
 order: 10
-title: 2 SMB-file
+title: 2) SMB-file
 ---
 
 HQ-SRV
