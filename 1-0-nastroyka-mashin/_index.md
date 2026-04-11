@@ -9,7 +9,11 @@ timedatectl set-timezone Asia/Tomsk
 
 nano /etc/resolv.conf
 
-1\.1.1.1 + 192.168.100.2
+nameserver 192.168.100.2
+
+nameserver 1.1.1.1
+
+
 
 chattr +i /etc/resolv.conf
 
