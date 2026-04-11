@@ -1,6 +1,6 @@
 ---
 order: 7
-title: DNS (HQ-SRV)
+title: 1) DNS (HQ-SRV)
 ---
 
 Настройка на **HQ-SRV**:

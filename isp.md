@@ -1,6 +1,6 @@
 ---
 order: 2
-title: ISP
+title: 1) ISP
 ---
 
 nano /etc/network/interfaces

@@ -1,6 +1,6 @@
 ---
 order: 6.5
-title: DHCP (HQ-RTR)
+title: 1) DHCP (HQ-RTR)
 ---
 
 На **HQ-RTR:**

@@ -1,6 +1,6 @@
 ---
 order: 1.5
-title: All setup
+title: 0) All setup
 ---
 
 hostnamectl set-hostname
