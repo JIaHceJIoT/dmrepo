@@ -5,7 +5,7 @@ title: 1) DNS (HQ-SRV)
 
 Настройка на HQ-SRV
 
-
+ 
 
 apt update && apt install bind9 -y
 
@@ -19,7 +19,7 @@ allow-query \{ any; };
 
 listen-on-v6 \{ none; };
 
-
+ 
 
 Далее в nano /etc/bind/named.conf.default-zones
 
@@ -59,23 +59,19 @@ file "/etc/bind/0.db";
 
 };
 
-cp /etc/bind/db.empty
+ 
 
-/etc/bind/au-team.db
+cp /etc/bind/db.empty /etc/bind/au-team.db
 
-cp /etc/bind/db.empty
+cp /etc/bind/db.empty /etc/bind/100.db
 
-/etc/bind/100.db
+cp /etc/bind/db.empty /etc/bind/200.db
 
-cp /etc/bind/db.empty
+cp /etc/bind/db.empty /etc/bind/0.db
 
-/etc/bind/200.db
+ 
 
-cp /etc/bind/db.empty
-
-/etc/bind/0.db
-
-/etc/bind/au-team.db
+nano /etc/bind/au-team.db
 
 В SOA пишем au-team.irpo. root.au-team.irpo.
 
@@ -138,6 +134,8 @@ wiki IN A 192.168.0.2
 1 IN PTR br-rtr.au-team.irpo.
 
 2 IN PTR br-srv.au-team.irpo.
+
+ 
 
 Проверка:
 

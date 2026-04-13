@@ -75,6 +75,8 @@ ttl 255
 
 
 
+-  Интернет
+
 apt-get update && apt-get install iptables iptables-persistent -y
 
 iptables -t nat -A POSTROUTING -s 192.168.100.0/27 -o ens192 -j MASQUERADE
@@ -85,9 +87,15 @@ iptables-save > /etc/iptables/rules.v4
 
 
 
+-  SSH
+
 adduser -m net_admin
 
 **visudo**
+
+
+
+-  OSPF (FRR)
 
 apt install frr -y
 

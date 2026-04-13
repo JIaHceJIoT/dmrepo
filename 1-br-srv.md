@@ -13,7 +13,9 @@ netmask 255.255.255.240
 
 gateway 192.168.0.1
 
+ 
 
+-  SSH
 
 **adduser sshuser**
 
@@ -35,9 +37,11 @@ gateway 192.168.0.1
 
 Изменяем **Banner /etc/ssh-banner**
 
+ 
+
 Создаём файл /etc/ssh-banner и пишем в него текст **Authorized access only**
 
-
+ 
 
 **ssh-keygen -t rsa -b 4096 (скипаем всё)**
 

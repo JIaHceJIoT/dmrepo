@@ -11,6 +11,8 @@ nano /etc/default/isc-dhcp-server
 
 INTERFACESv4=”ens224:1”
 
+ 
+
 nano /etc/dhcp/dhcpd.conf
 
 Комментируем все белые строки
@@ -31,7 +33,7 @@ max-lease-time 7200;
 
 }
 
-
+ 
 
 systemctl restart isc-dhcp-server
 

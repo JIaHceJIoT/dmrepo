@@ -39,6 +39,8 @@ ttl 255
 
 
 
+-  Интернет
+
 apt-get update && apt-get install iptables iptables-persistent -y
 
 iptables -t nat -A POSTROUTING -s 192.168.0.0/28 -o ens192 -j MASQUERADE
@@ -47,50 +49,54 @@ iptables-save > /etc/iptables/rules.v4
 
 
 
+-  SSH
+
 adduser net_admin
 
-**visudo**
+visudo
 
 apt install frr -y
 
-**nano /etc/frr/daemons**
+nano /etc/frr/daemons
 
-**ospfd = yes**
+ospfd = yes
 
 
+
+-  OSPF (FRR)
 
 systemctl enable frr
 
-**systemctl restart frr**
+systemctl restart frr
 
-**vtysh**
+vtysh
 
-**conf t**
+conf t
 
-**ip forwarding**
+ip forwarding
 
-**router ospf**
+router ospf
 
-**passive-interface default**
+passive-interface default
 
-**network 192.168.0.0/28 area 0**
+network 192.168.0.0/28 area 0
 
-**network 10.10.0.0/30 area 0**
+network 10.10.0.0/30 area 0
 
-**area 0 authentication**
+area 0 authentication
 
-**exit**
+exit
 
-**interface tun1**
+interface tun1
 
-**no ip ospf network broadcast**
+no ip ospf network broadcast
 
-**no ip ospf passive**
+no ip ospf passive
 
-**ip ospf authentication**
+ip ospf authentication
 
-**ip ospf authentication-key P@ssw0rd**
+ip ospf authentication-key P@ssw0rd
 
-**exit**
+exit
 
-**do wr**
+do wr

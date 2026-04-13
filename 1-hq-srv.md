@@ -15,6 +15,8 @@ gateway 192.168.100.1
 
 
 
+-  SSH
+
 adduser sshuser
 
 usermod -u 2026 sshuser

@@ -23,11 +23,15 @@ netmask 255.255.255.240
 
 
 
+Если ospf не захочет работать
+
 post-up ip route list | grep -q "192.168.100.0/27 via 172.16.1.2" || ip route add 192.168.100.0/27 via 172.16.1.2 dev ens224
 
 post-up ip route list | grep -q "192.168.0.0/28 via 172.16.2.2" || ip route add 192.168.0.0/28 via 172.16.2.2 dev ens256
 
 
+
+Интернет
 
 apt-get update && apt-get install iptables iptables-persistent -y
 
