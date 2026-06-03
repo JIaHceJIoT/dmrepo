@@ -13,8 +13,6 @@ nameserver 192.168.100.2
 
 nameserver 1.1.1.1
 
- 
-
 chattr +i /etc/resolv.conf
 
 nano /etc/sysctl.conf
