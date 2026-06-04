@@ -138,3 +138,7 @@ systemctl status bind9
 named-checkconf -z
 
 dig (@ip\_сервер) доменное\_имя\_устройства
+
+nslookup доменное\_имя\_устройства
+
+ping -c 2 доменное\_имя\_устройства
