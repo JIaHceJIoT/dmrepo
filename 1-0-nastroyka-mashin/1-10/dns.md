@@ -9,6 +9,8 @@ apt update && apt install bind9 -y
 
 nano /etc/bind/named.conf.options
 
+В нём добавляем forwarding на 1.1.1.1 или любой другой общедоступный адрес
+
 Под всеми слэшами до закрывающейся скобки пишем:
 
 dnssec-validation no;
@@ -134,3 +136,5 @@ systemctl restart bind9 (ОБЯЗАТЕЛЬНО ПЕРЕЗАПУСТИТЬ)
 systemctl status bind9
 
 named-checkconf -z
+
+dig (@ip\_сервер) доменное\_имя\_устройства
