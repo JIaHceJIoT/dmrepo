@@ -39,9 +39,9 @@ default_realm = AU-TEAM.IRPO
 
 AU-TEAM.IRPO = \{
 
-kdc [br-srv.au](http://br-srv.au)\-team.irpo
+kdc br-srv.au-team.irpo
 
-admin_server = [br-srv.au](http://br-srv.au)\-team.irpo
+admin_server = br-srv.au-team.irpo
 
 }
 
@@ -59,7 +59,7 @@ au-team.irpo= AU-TEAM.IRPO
 
 samba-tool domain provision --use-rfc2307 --interactive
 
-(Перезапускам и проверяем статус samba
+(Перезапускаем и проверяем статус samba
 
 Если в при проверке статуса samba есть какая-то ошибка, то смотрим, есть ли жалоба на какой-то процесс. Выводится id процесса. Убиваем процесс командой kill id\_процесса)
 
