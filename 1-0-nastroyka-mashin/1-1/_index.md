@@ -7,6 +7,8 @@ hostnamectl set-hostname
 
 timedatectl set-timezone Asia/Tomsk
 
+newgrp
+
 nano /etc/resolv.conf
 
 nameserver 192.168.100.2
