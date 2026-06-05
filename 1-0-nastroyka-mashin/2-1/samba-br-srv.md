@@ -1,98 +1,118 @@
 ---
 order: 1
-title: BR-SRV для samba
+title: BR-SRV Samba
 ---
 
-BR-SRV
+## **BR-SRV**
 
-Для начала нужно установить пакеты SAMBA:
+Сначала:
 
-apt update && apt install samba\* krb5\*
+```
+apt install samba winbind -y
+```
 
+Затем:
 
-
-Переходим в конфигурационный файл: /etc/krb5.conf
-
-\[logging\]
-
-default = FILE: /var/log/krb5libs.log
-
-kdc = FILE: /var/log/krb5kdc.log
-
-admin_server = FILE: /var/log/kadmind.log
-
-\[libdefaults\]
-
-dns_lookup_realm = false
-
-dns_lookup_kdc = true
-
-ticket_lifetime = 24h
-
-forwardable = true
-
-default_realm = true
-
-default_realm = AU-TEAM.IRPO
-
-\[realms\]
-
-AU-TEAM.IRPO = \{
-
-kdc br-srv.au-team.irpo
-
-admin_server = br-srv.au-team.irpo
-
-}
-
-\[domain_realm\]
-
-.au-team.irpo= AU-TEAM.IRPO
-
-au-team.irpo= AU-TEAM.IRPO
-
-
-
-Удаляем файл: /etc/samba/smb.conf
-
-
-
+```
+rm -rf /etc/samba/smb.conf
 samba-tool domain provision --use-rfc2307 --interactive
+```
 
-(Перезапускаем и проверяем статус samba
+Теперь:
 
-Если в при проверке статуса samba есть какая-то ошибка, то смотрим, есть ли жалоба на какой-то процесс. Выводится id процесса. Убиваем процесс командой kill id\_процесса)
+```
+systemctl disable --now smbd winbind
+systemctl mask smbd winbind
+systemctl start samba
+```
 
-Проверяем работу домена командами
+Группа и 5 пользователей:
 
-samba-tool domain info 127.0.0.1
+```
+samba-tool group create hq
+for i in {1..5}; do
+samba-tool user create hquser$i "P@ssw0rd"
+samba-tool group addmembers hq hquser$i
+done
+```
 
-samba-tool domain info 192.168.0.2
+## **HQ-CLI**
 
-Создаём пользователей командами
+```
+apt install krb5-user -y
+```
 
-samba-tool user add user1.hq P@ssw0rd
+В качестве управляющего сервера необходимо добавить [`br-srv.au`](http://br-srv.au)`-team.irpo`.
 
-samba-tool user add user2.hq P@ssw0rd
+Далее:
 
-samba-tool user add user3.hq P@ssw0rd
+```
+realm join -U Administrator br-srv
+```
 
-samba-tool user add user4.hq P@ssw0rd
+Теперь надо получить билет:
 
-samba-tool user add user5.hq P@ssw0rd
+```
+kinit -k 'HQ-CLI$@AU-TEAM.IRPO'
+```
 
-Создаём группу и добавляем туда пользователей:
+Далее для группы прописывается правило:
 
-samba-tool group add hq
+```
+gid=$(getent group hq@au-team.irpo | awk -F: '{print $3}')
+echo "%#${gid} ALL=(ALL) /usr/bin/cat, /usr/bin/grep, /usr/bin/id" > /etc/sudoers.d/hq
+chmod 440 /etc/sudoers.d/hq
+visudo -c
+```
 
-samba-tool group addmembers hq user1.hq,user2.hq,user3.hq,user4.hq,user5.hq
+Обязательно попробовать войти под пользователем:
 
-Для присоединения машины к домену используется команда
+```
+sudo pam-auth-update --enable mkhomedir
+su - hquser1@au-team.irpo
+```
 
-realm join AU-TEAM.IRPO -U Administrator
+## **Troubleshooting**
 
-%hq ALL=(ALL) /usr/bin/cat, /usr/bind/grep, /usr/bind/id
+Если пишет `su: Системная ошибка`:
 
-%hq ALL=(ALL) NOPASSWD:/usr/bin/cat, /usr/bind/grep, /usr/bind/id
+1. Необходимо сделать на BR-SRV:
 
-Заходим в файл /etc/sudoers.d/hq
+```
+samba-tool ntacl sysvolreset
+```
+
+Попробовать снова переключить пользователя.
+
+1. Попробовать подключиться через smbclient напрямую для просмотра политик:
+
+```
+apt install smbclient -y
+```
+
+```
+smbclient //br-srv/sysvol -k -c 'ls au-team.irpo/Policies'
+```
+
+Если ничего не выдало, попробовать:
+
+```
+kdestroy
+kinit -k 'HQ-CLI$@AU-TEAM.IRPO'
+```
+
+И посмотреть тикет, в нем должны быть доменные правила:
+
+```
+klist -k /etc/krb5.keytab
+```
+
+Попробовать снова `smbclient`. Если получается - сделать первый шаг.
+
+1. Если вообще ничего не выходит - перейти в файл `/etc/sssd/sssd.conf` и добавить следующую строку:
+
+```
+ad_gpo_access_mode = disabled
+```
+
+Это отключит проверку групповых политик, поэтому должно пустить.
