@@ -32,11 +32,11 @@ file "/etc/bind/au-team.db";
 };
 zone "111.168.192.in-addr.arpa" {
 type master;
-file "/etc/bind/100.db";
+file "/etc/bind/111.db";
 };
 zone "211.168.192.in-addr.arpa" {
 type master;
-file "/etc/bind/200.db";
+file "/etc/bind/211.db";
 };
 zone "0.168.192.in-addr.arpa" {
 type master;
