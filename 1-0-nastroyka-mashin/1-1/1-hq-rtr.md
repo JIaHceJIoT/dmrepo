@@ -17,7 +17,7 @@ auto ens224
 
 iface ens224 inet static
 
-address 192.168.100.1
+address 192.168.111.1
 
 netmask 255.255.255.224
 
@@ -25,7 +25,7 @@ auto ens224:1
 
 iface ens224:1 inet static
 
-address 192.168.200.1
+address 192.168.211.1
 
 netmask 255.255.255.224
 
@@ -37,21 +37,21 @@ address 192.168.99.99
 
 netmask 255.255.255.248
 
-auto ens224.100
+auto ens224.111
 
-iface ens224.100 inet manual
+iface ens224.111 inet manual
 
 vlan-raw-device ens224
 
-auto ens224.200
+auto ens224.211
 
-iface ens224.200 inet manual
+iface ens224.211 inet manual
 
 vlan-raw-device ens224:1
 
-auto ens224.999
+auto ens224.811
 
-iface ens224.999 inet manual
+iface ens224.811 inet manual
 
 vlan-raw-device ens224:2
 
@@ -79,9 +79,9 @@ ttl 255
 
 apt-get update && apt-get install iptables iptables-persistent -y
 
-iptables -t nat -A POSTROUTING -s 192.168.100.0/27 -o ens192 -j MASQUERADE
+iptables -t nat -A POSTROUTING -s 192.168.111.0/27 -o ens192 -j MASQUERADE
 
-iptables -t nat -A POSTROUTING -s 192.168.200.0/27 -o ens192 -j MASQUERADE
+iptables -t nat -A POSTROUTING -s 192.168.211.0/27 -o ens192 -j MASQUERADE
 
 iptables-save > /etc/iptables/rules.v4
 
@@ -119,9 +119,9 @@ systemctl enable frr
 
 **passive-interface default**
 
-**network 192.168.100.0/27 area 0**
+**network 192.168.111.0/27 area 0**
 
-**network 192.168.200.0/27 area 0**
+**network 192.168.211.0/27 area 0**
 
 **network 10.10.0.0/30 area 0**
 
