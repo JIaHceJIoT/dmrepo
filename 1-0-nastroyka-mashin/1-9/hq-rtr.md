@@ -15,13 +15,13 @@ nano /etc/dhcp/dhcpd.conf
 
 Комментируем все белые строки
 
-subnet 192.168.200.0 netmask 255.255.255.224 \{
+subnet 192.168.211.0 netmask 255.255.255.224 \{
 
-range 192.168.200.2 192.168.200.4;
+range 192.168.211.2 192.168.211.30;
 
-option domain-name-servers 192.168.100.2;
+option domain-name-servers 192.168.111.2;
 
-option routers 192.168.200.1;
+option routers 192.168.211.1;
 
 option domain-name "au-team.irpo";
 

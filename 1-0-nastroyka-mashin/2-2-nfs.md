@@ -3,6 +3,14 @@ order: 14
 title: 2.3 NFS
 ---
 
+Занести в отчёт:
+
+1) основную настройку hq-srv
+
+2) основное монтирование на hq-cli
+
+3) проверка работы
+
 ## **HQ-SRV**
 
 ```
@@ -14,7 +22,7 @@ apt install nfs-kernel-server -y
 ```
 mkdir /raid/nfs
 chmod 777 /raid/nfs
-echo '/raid/nfs 192.168.211.0/28(rw,sync,no_subtree_check)' | tee -a /etc/exports
+echo '/raid/nfs 192.168.211.0/27(rw,sync,no_subtree_check)' | tee -a /etc/exports
 systemctl restart nfs-kernel-server
 ```
 
